@@ -1,0 +1,83 @@
+/*
+Problem Name: Find Missing Elements in Array for the Given Range.
+
+Statement:For the Given integer array A of size N and the range low and high 
+find the element which is fall within the range but not in array. 
+Example:
+N = 4
+A[] = {2, 3, 6, 7}
+low = 1, High = 10
+Output:
+1 4 5 8 9 10 //these elements are not present in array
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+/*
+//Brute Force approach.
+void findMissingElements(int A[], int N, int low, int high){
+	for(int i = low; i<=high;i++){
+		bool present = false;
+		for(int j = 0;j<N;j++){
+			if(A[j]==i){
+				present =true;
+				break;
+			}
+		}
+		if(!present){
+		cout<<i<<" ";
+		}
+	}
+}
+//Time complexity: O(N*(high-low+1))
+//Space Complexity:O(1)
+
+//Using Sorting Algorithm.
+void findMissingElements(int A[], int N, int low, int high){
+	sort(A, A+N);
+	int* ptr = lower_bound(A, A+N, low);
+	int index = ptr-A;
+	int i = index, x = low;
+	while(i<N&&x<=high){
+		if(A[i]!= x)
+			cout<<x<<" ";
+     	else
+			i++;
+			x++;
+}
+	while(x<=high){
+		cout<<x<<" ";
+		x++;
+	}
+}
+//Time complexity: O(NlogN+k) where k is Number of missing number.
+//Space Complexity: O(1).
+*/
+//Using Hashing.
+void findMissingElements(int A[], int N, int low, int high){
+	unordered_set<int>s;
+	for(int i = 0;i<N;i++){
+		s.insert(A[i]);
+	}
+		for(int i =low;i<=high;i++){
+			if(s.find(i)==s.end())
+			cout<<i<<" ";
+		}
+	
+}
+//Time Complexity: O(N)
+//Space Compelexity: O(N)
+int main(){
+	int N;
+	cin>>N;
+	int A[N];
+	for(int i = 0;i<N;i++){
+		cin>>A[i];
+	}
+	int low, high;
+	cin>>low>>high;
+	
+	findMissingElements(A, N, low, high);
+	return 0;
+}
